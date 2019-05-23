@@ -317,7 +317,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     if (widget.enabled) {
       setState(() {
         _chips.clear();
-        _updateTextInputState();
       });
       if (widget.maxChips != null) _initFocusNode();
       widget.onChanged(_chips.toList(growable: false));
