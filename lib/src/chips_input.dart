@@ -312,6 +312,17 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void clearText(){
     _updateTextInputState();
   }
+
+  void clearChips() {
+    if (widget.enabled) {
+      setState(() {
+        _chips.clear();
+        _updateTextInputState();
+      });
+      if (widget.maxChips != null) _initFocusNode();
+      widget.onChanged(_chips.toList(growable: false));
+    }
+  }
 }
 
 class AlwaysDisabledFocusNode extends FocusNode {
