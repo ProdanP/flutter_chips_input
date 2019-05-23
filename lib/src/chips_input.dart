@@ -308,6 +308,10 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void updateFloatingCursor(RawFloatingCursorPoint point) {
     print(point);
   }
+
+  void clearText(){
+    _updateTextInputState();
+  }
 }
 
 class AlwaysDisabledFocusNode extends FocusNode {
