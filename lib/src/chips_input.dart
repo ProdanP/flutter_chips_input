@@ -33,7 +33,7 @@ class ChipsInput<T> extends StatefulWidget {
   final ChipsBuilder<T> suggestionBuilder;
   final List<T> initialValue;
   final int maxChips;
-  final ValueChanged<T> onChipRemoved;
+  final Function onChipRemoved;
 
   @override
   ChipsInputState<T> createState() => ChipsInputState<T>();
@@ -320,14 +320,11 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   }
 
   void clearChips() {
-    if (widget.enabled) {
-      setState(() {
-        _chips.clear();
-        _updateTextInputState();
-      });
-      if (widget.maxChips != null) _initFocusNode();
-      widget.onChanged(_chips.toList(growable: false));
-    }
+    setState(() {
+      _chips.clear();
+      _updateTextInputState();
+    });
+    widget.onChipRemoved();
   }
 }
 
