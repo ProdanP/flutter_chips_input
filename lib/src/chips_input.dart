@@ -301,9 +301,11 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     final localId = ++_searchId;
     final results = await widget.findSuggestions(value);
     if (_searchId == localId && mounted) {
-      setState(() => _suggestions = results
-          .where((profile) => !_chips.contains(profile))
-          .toList(growable: false));
+      if (results != null) {
+        setState(() => _suggestions = results
+            .where((profile) => !_chips.contains(profile))
+            .toList(growable: false));
+      }
     }
     _suggestionsStreamController.add(_suggestions);
   }
