@@ -322,7 +322,6 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void clearChips() {
     setState(() {
       _chips.clear();
-      _updateTextInputState();
     });
     widget.onChipRemoved();
   }
