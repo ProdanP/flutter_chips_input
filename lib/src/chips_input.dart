@@ -325,6 +325,17 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     });
     widget.onChipRemoved();
   }
+
+  void setText(String text) {
+    _value = TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
+      composing: TextRange(start: 0, end: text.length),
+    );
+    if (_connection == null)
+      _connection = TextInput.attach(this, TextInputConfiguration());
+    _connection.setEditingState(_value);
+  }
 }
 
 class AlwaysDisabledFocusNode extends FocusNode {
