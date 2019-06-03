@@ -63,6 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             ChipsInput(
+              editStyle: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+            fontSize: 16),
               focusColor: Colors.blue,
               /*initialValue: [
                 AppProfile('John Doe', 'jdoe@flutter.io',
@@ -71,11 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
               enabled: true,
               maxChips: 2,
               decoration: InputDecoration(
-                // prefixIcon: Icon(Icons.search),
-                // hintText: formControl.hint,
-                labelText: "Select People",
-                // enabled: false,
-                // errorText: field.errorText,
+                border: InputBorder.none,
+                contentPadding:
+                const EdgeInsets.symmetric(vertical: 0.0),
+                hintText: 'Write your comment',
               ),
               findSuggestions: (String query) {
                 if (query.length != 0) {
