@@ -22,6 +22,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.maxChips,
     this.onChipRemoved,
     this.focusColor = Colors.black,
+    @required this.editStyle
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
 
@@ -36,6 +37,7 @@ class ChipsInput<T> extends StatefulWidget {
   final int maxChips;
   final Function onChipRemoved;
   final Color focusColor;
+  final TextStyle editStyle;
 
   @override
   ChipsInputState<T> createState() => ChipsInputState<T>();
@@ -221,7 +223,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
         .map<Widget>((data) => widget.chipBuilder(context, this, data))
         .toList();
 
-    final theme = Theme.of(context);
+    //final theme = Theme.of(context);
 
     chipsChildren.add(
       Container(
@@ -232,9 +234,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
           children: <Widget>[
             Text(
               text,
-              style: theme.textTheme.subhead.copyWith(
-                height: 1.5,
-              ),
+              style: widget.editStyle,
             ),
             _TextCaret(
               resumed: _focusNode.hasFocus,
@@ -388,7 +388,6 @@ class _TextCursorState extends State<_TextCaret>
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return FractionallySizedBox(
       heightFactor: 0.7,
       child: Opacity(
