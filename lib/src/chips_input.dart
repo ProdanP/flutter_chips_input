@@ -183,6 +183,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
       _suggestionsStreamController.add(_suggestions);
     });
     widget.onChanged(_chips.toList(growable: false));
+    FocusScope.of(context).requestFocus(_focusNode);
   }
 
   void deleteChip(T data) {
@@ -294,7 +295,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
     debugPrint('text '+text);
     _value = TextEditingValue(
       text: text,
-      //selection: TextSelection.collapsed(offset: text.length),
+      selection: TextSelection.collapsed(offset: text.length),
       //composing: TextRange(start: 0, end: text.length),
     );
     if (_connection == null)
@@ -334,8 +335,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void setText(String text) {
     _value = TextEditingValue(
       text: text,
-      /*selection: TextSelection.collapsed(offset: text.length),
-      composing: TextRange(start: 0, end: text.length),*/
+      selection: TextSelection.collapsed(offset: text.length),
+      //composing: TextRange(start: 0, end: text.length),
     );
     if (_connection == null)
       _connection = TextInput.attach(this, TextInputConfiguration());
