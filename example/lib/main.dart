@@ -63,10 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: <Widget>[
             ChipsInput(
-              initialValue: [
+              focusColor: Colors.blue,
+              /*initialValue: [
                 AppProfile('John Doe', 'jdoe@flutter.io',
                     'https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX4057996.jpg'),
-              ],
+              ],*/
               enabled: true,
               maxChips: 2,
               decoration: InputDecoration(

@@ -21,6 +21,7 @@ class ChipsInput<T> extends StatefulWidget {
     this.onChipTapped,
     this.maxChips,
     this.onChipRemoved,
+    this.focusColor = Colors.black,
   })  : assert(maxChips == null || initialValue.length <= maxChips),
         super(key: key);
 
@@ -34,6 +35,7 @@ class ChipsInput<T> extends StatefulWidget {
   final List<T> initialValue;
   final int maxChips;
   final Function onChipRemoved;
+  final Color focusColor;
 
   @override
   ChipsInputState<T> createState() => ChipsInputState<T>();
@@ -41,7 +43,7 @@ class ChipsInput<T> extends StatefulWidget {
 
 class ChipsInputState<T> extends State<ChipsInput<T>>
     implements TextInputClient {
-  static const kObjectReplacementChar = 0xFFFC;
+  static const kObjectReplacementChar = 0x007E;
   Set<T> _chips = Set<T>();
   List<T> _suggestions;
   StreamController<List<T>> _suggestionsStreamController;
@@ -63,6 +65,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void initState() {
     super.initState();
     _chips.addAll(widget.initialValue);
+    //setText('a');
     _updateTextInputState();
     _initFocusNode();
     this._suggestionsBoxController = _SuggestionsBoxController(context);
@@ -234,6 +237,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
             ),
             _TextCaret(
               resumed: _focusNode.hasFocus,
+              color: widget.focusColor,
             ),
           ],
         ),
@@ -287,10 +291,11 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void _updateTextInputState() {
     final text =
         String.fromCharCodes(_chips.map((_) => kObjectReplacementChar));
+    debugPrint('text '+text);
     _value = TextEditingValue(
       text: text,
-      selection: TextSelection.collapsed(offset: text.length),
-      composing: TextRange(start: 0, end: text.length),
+      //selection: TextSelection.collapsed(offset: text.length),
+      //composing: TextRange(start: 0, end: text.length),
     );
     if (_connection == null)
       _connection = TextInput.attach(this, TextInputConfiguration());
@@ -329,8 +334,8 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
   void setText(String text) {
     _value = TextEditingValue(
       text: text,
-      selection: TextSelection.collapsed(offset: text.length),
-      composing: TextRange(start: 0, end: text.length),
+      /*selection: TextSelection.collapsed(offset: text.length),
+      composing: TextRange(start: 0, end: text.length),*/
     );
     if (_connection == null)
       _connection = TextInput.attach(this, TextInputConfiguration());
@@ -348,10 +353,12 @@ class _TextCaret extends StatefulWidget {
     Key key,
     this.duration = const Duration(milliseconds: 500),
     this.resumed = false,
+    this.color = Colors.red,
   }) : super(key: key);
 
   final Duration duration;
   final bool resumed;
+  final Color color;
 
   @override
   _TextCursorState createState() => _TextCursorState();
@@ -387,7 +394,7 @@ class _TextCursorState extends State<_TextCaret>
         opacity: _displayed && widget.resumed ? 1.0 : 0.0,
         child: Container(
           width: 2.0,
-          color: theme.primaryColor,
+          color: widget.color,//theme.primaryColor,
         ),
       ),
     );
