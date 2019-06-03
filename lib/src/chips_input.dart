@@ -227,12 +227,11 @@ class ChipsInputState<T> extends State<ChipsInput<T>>
 
     chipsChildren.add(
       Container(
-        alignment: Alignment.centerLeft,
+       // alignment: Alignment.centerLeft,
         height: 32.0,
         child: Row(
-
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
+         // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               text,
